@@ -15,6 +15,6 @@ recurRandom xs n gen = let randomPair = randomR (1, length xs) gen
 
 rnd_select :: Eq a => [a] -> Int -> IO [a]
 rnd_select xs n = do 
-                    gen <- getStdGen
+                    gen <- newStdGen
                     return $ recurRandom xs n gen
 
