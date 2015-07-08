@@ -13,8 +13,8 @@ recurRandom xs n gen = let randomPair = randomR (1, length xs) gen
                            newgen = snd randomPair
                            in randomNum:(recurRandom (delete randomNum xs) (n-1) newgen) 
 
-rnd_select :: [a] -> Int -> [a]
+rnd_select :: Eq a => [a] -> Int -> IO [a]
 rnd_select xs n = do 
                     gen <- getStdGen
-                    recurRandom xs n gen
+                    return $ recurRandom xs n gen
 
