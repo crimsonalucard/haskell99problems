@@ -1,11 +1,11 @@
 #!/usr/bin/env runghc
 import System.Random
-import Data.List
-
 
 
 rnd_permu :: [a] -> IO [a]
-rnd_permu x = let randomIndexes = take (length x) . nub . randomRs (0, length x - 1) <$> newStdGen
-              in map ((!!) x) <$> randomIndexes
-
-
+rnd_permu [] = return []
+rnd_permu (x:xs) = do 
+  random_index <- randomRIO (0, length xs)
+  rest <- rnd_permu xs
+  let (zs, ys) = splitAt random_index rest
+  return $ zs ++ (x:ys) 
